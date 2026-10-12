@@ -1,7 +1,10 @@
 services:
   jenkins:
     image: ${REGISTRY_PREFIX:-}jenkins:lts-jdk21
+    container_name: jenkins
     restart: on-failure
+    networks:
+      - docker-kit-network
     ports:
       - "8080:8080"
       - "50000:50000"
@@ -10,4 +13,8 @@ services:
 
 volumes:
   jenkins_data:
+    external: true
+
+networks:
+  docker-kit-network:
     external: true
